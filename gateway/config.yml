@@ -1,15 +1,8 @@
 microService:
-  # 每一种服务不相同，同类的微服务相同
-  tag:  api
   # 本地监听商品，docker中
-  port: 9050
+  port: 9999
   # 本地监听主机，docker中
   host: 0.0.0.0
-  # etct注册端口，docker映射到外部时使用
-  regPort: 9050
-  # etct注册主机，docker映射到外部时使用
-  regHost: localhost
-  # 所有微服務相同
 etcd:
   hosts:
     - "192.168.0.201:12379"

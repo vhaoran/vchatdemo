@@ -6,11 +6,12 @@ import (
 	"net/http"
 
 	"github.com/weihaoranW/vchat/common/g"
-	"github.com/weihaoranW/vchat/demo/unit/intf"
-	"github.com/weihaoranW/vchat/demo/unit/service"
 	"github.com/weihaoranW/vchat/lib"
 	"github.com/weihaoranW/vchat/lib/yetcd"
 	"github.com/weihaoranW/vchat/lib/ylog"
+
+	"vchatdemo/unit/intf"
+	"vchatdemo/unit/service"
 )
 
 var (

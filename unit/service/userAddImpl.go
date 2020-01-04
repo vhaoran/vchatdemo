@@ -3,7 +3,7 @@ package service
 import (
 	"fmt"
 
-	"github.com/weihaoranW/vchat/demo/unit/intf"
+	"vchatdemo/unit/intf"
 	"github.com/weihaoranW/vchat/lib/ykit"
 )
 
