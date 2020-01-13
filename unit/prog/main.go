@@ -84,7 +84,7 @@ func main() {
 	fmt.Println(fmt.Sprint("监听:", host, ":", port))
 	testStr := fmt.Sprintf(
 		`测试：curl -X POST  -H 'Content-Type:application/json'  -d '{"S":"hello,weihaoran"}' %s:%d/HelloWorld`,
-		host, port)
+		"127.0.0.1", port)
 	fmt.Println(testStr)
 	ylog.Info(fmt.Sprint("监听:", host, ":", port))
 
