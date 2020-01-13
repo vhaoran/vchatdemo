@@ -1,4 +1,4 @@
-package service
+package ctl
 
 import (
 	"fmt"
@@ -8,10 +8,10 @@ import (
 )
 
 type (
-	HelloWorldImpl struct {
+	HelloWorldCtl struct {
 	}
 )
 
-func (h *HelloWorldImpl) Hello(in *intf.HelloWorldRequest) (string, error) {
+func (h *HelloWorldCtl) Hello(in *intf.HelloWorldRequest) (string, error) {
 	return fmt.Sprint("hello world,now is ", time.Now()), nil
 }

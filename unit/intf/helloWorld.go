@@ -9,7 +9,6 @@ import (
 	"github.com/davecgh/go-spew/spew"
 	"github.com/go-kit/kit/endpoint"
 	tran "github.com/go-kit/kit/transport/http"
-
 	"github.com/weihaoranW/vchat/lib/ykit"
 )
 
@@ -82,19 +81,27 @@ func (r *HelloWorldHandler) DecodeResponse(_ context.Context, res *http.Response
 }
 
 //handler for router，微服务本地接口，
-func (r *HelloWorldHandler) HandlerLocal(service HelloWorldService) *tran.Server {
-	endpoint := r.MakeLocalEndpoint(service)
+func (r *HelloWorldHandler) HandlerLocal(service HelloWorldService,
+	mid []endpoint.Middleware,
+	options ...tran.ServerOption) *tran.Server {
+
+	ep := r.MakeLocalEndpoint(service)
+	for _, f := range mid {
+		ep = f(ep)
+	}
+
 	handler := tran.NewServer(
-		endpoint,
+		ep,
 		r.DecodeRequest,
 		r.base.EncodeResponse,
-	)
+		options...)
 	//handler = loggingMiddleware()
 	return handler
 }
 
 //sd,proxy实现,用于etcd自动服务发现时的handler
-func (r *HelloWorldHandler) HandlerSD(mid ...endpoint.Middleware) *tran.Server {
+func (r *HelloWorldHandler) HandlerSD(mid []endpoint.Middleware,
+	options ...tran.ServerOption) *tran.Server {
 	return r.base.HandlerSD(
 		context.Background(),
 		MSTAG,
@@ -103,7 +110,8 @@ func (r *HelloWorldHandler) HandlerSD(mid ...endpoint.Middleware) *tran.Server {
 		HelloWorld_HANDLER_PATH,
 		r.DecodeRequest,
 		r.DecodeResponse,
-		mid)
+		mid,
+		options...)
 }
 
 // for test

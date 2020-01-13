@@ -36,7 +36,7 @@ func main() {
 	//ctx := context.Background()
 	mux := http.NewServeMux()
 
-	mux.Handle("/api/HelloWorld", new(intf.HelloWorldHandler).HandlerSD(Middleware1))
+	mux.Handle("/api/HelloWorld", new(intf.HelloWorldHandler).HandlerSD(nil))
 	mux.Handle("/api/UserAdd", new(intf.UserAddHandler).HandlerSD())
 	mux.Handle("/api/aaa", new(ykit.RootTran).HandlerSDDefault(
 		context.Background(),

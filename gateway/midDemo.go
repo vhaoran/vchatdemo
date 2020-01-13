@@ -3,8 +3,9 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/go-kit/kit/endpoint"
 	golog "log"
+
+	"github.com/go-kit/kit/endpoint"
 )
 
 func Middleware1(next endpoint.Endpoint) endpoint.Endpoint {

@@ -1,4 +1,4 @@
-package service
+package ctl
 
 import (
 	"fmt"
@@ -7,10 +7,10 @@ import (
 	"github.com/weihaoranW/vchat/lib/ykit"
 )
 
-type UserAddImpl struct {
+type UserAddCtl struct {
 }
 
-func (r *UserAddImpl) Add(in *intf.UserAddRequest) (*ykit.Result, error) {
+func (r *UserAddCtl) Add(in *intf.UserAddRequest) (*ykit.Result, error) {
 	// do some thing,add userInfo to db
 	//
 	fmt.Println("------", "input params", "-----------")

@@ -10,8 +10,8 @@ import (
 	"github.com/weihaoranW/vchat/lib/yetcd"
 	"github.com/weihaoranW/vchat/lib/ylog"
 
+	"vchatdemo/unit/ctl"
 	"vchatdemo/unit/intf"
-	"vchatdemo/unit/service"
 )
 
 var (
@@ -64,13 +64,13 @@ func main() {
 	//--------handlers-----------------------------
 	// 每一步：配置路由
 	// HelloWorld handler
-	mux.Handle("/HelloWorld", new(intf.HelloWorldHandler).HandlerLocal(new(service.HelloWorldImpl)))
+	mux.Handle("/HelloWorld", new(intf.HelloWorldHandler).HandlerLocal(new(ctl.HelloWorldCtl), nil))
 	// userAdd,注意每个路由的来源
-	mux.Handle("/UserAdd", new(intf.UserAddHandler).HandlerLocal(new(service.UserAddImpl)))
+	mux.Handle("/UserAdd", new(intf.UserAddHandler).HandlerLocal(new(ctl.UserAddCtl)))
 	// 每一个微服务都需要实现的方法，用于测试服务是否运行
 	mux.Handle("/ping", http.HandlerFunc(new(Ping).handler))
 
-	//-------register micro-service-----------------
+	//-------register micro-ctl-----------------
 	// 每二步:註冊微服務到etcd
 	ylog.Info("正在向etcd注册微服务......")
 	if err := yetcd.RegisterService(msTag, regHost, fmt.Sprint(regPort)); err != nil {
