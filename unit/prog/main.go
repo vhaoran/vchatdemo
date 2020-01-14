@@ -5,10 +5,10 @@ import (
 	golog "log"
 	"net/http"
 
-	"github.com/weihaoranW/vchat/common/g"
-	"github.com/weihaoranW/vchat/lib"
-	"github.com/weihaoranW/vchat/lib/yetcd"
-	"github.com/weihaoranW/vchat/lib/ylog"
+	"github.com/vhaoran/vchat/common/g"
+	"github.com/vhaoran/vchat/lib"
+	"github.com/vhaoran/vchat/lib/yetcd"
+	"github.com/vhaoran/vchat/lib/ylog"
 
 	"vchatdemo/unit/ctl"
 	"vchatdemo/unit/intf"

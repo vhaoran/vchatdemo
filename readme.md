@@ -8,7 +8,7 @@
    独立部署时，需要在demo目录下执行 go init mod
    獨立部署時，導入路徑 需要更改為：
  	//单独运行时导入改为这个
- 	// or import "github.com/weihaoranW/vchat"
+ 	// or import "github.com/vhaoran/vchat"
 ＃ 除了intf包外，該微服務沒有其它任何外部導出，    
    不需要暴露任何其它源代码级的共享。
 

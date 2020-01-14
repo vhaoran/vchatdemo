@@ -8,8 +8,8 @@ import (
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 
-	"github.com/weihaoranW/vchat/lib"
-	"github.com/weihaoranW/vchat/lib/ymq"
+	"github.com/vhaoran/vchat/lib"
+	"github.com/vhaoran/vchat/lib/ymq"
 )
 
 func Test_emq_send(t *testing.T) {
@@ -33,7 +33,7 @@ func Test_emq_send(t *testing.T) {
 		return
 	}
 
-	_, err = ymq.XMq.Subscribe("a", func(c mqtt.Client, m mqtt.Message) {
+	_, err = ymq.X.Subscribe("a", func(c mqtt.Client, m mqtt.Message) {
 		log.Println("on received:", string(m.Payload()))
 	})
 	if err != nil {
@@ -41,7 +41,7 @@ func Test_emq_send(t *testing.T) {
 	}
 
 	for i := 0; i < 10; i++ {
-		err := ymq.XMq.PublishQos("a", 0, fmt.Sprint("hello,__,", i))
+		err := ymq.X.PublishQos("a", 0, fmt.Sprint("hello,__,", i))
 		if err != nil {
 			log.Println(err)
 			return

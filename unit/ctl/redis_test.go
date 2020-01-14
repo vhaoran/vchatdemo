@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/weihaoranW/vchat/lib"
-	"github.com/weihaoranW/vchat/lib/yredis"
+	"github.com/vhaoran/vchat/lib"
+	"github.com/vhaoran/vchat/lib/yredis"
 )
 
 func Test_redis_set(t *testing.T) {
@@ -33,12 +33,12 @@ func Test_redis_set(t *testing.T) {
 	}
 
 	key := "hello/key"
-	ret, err := yredis.XRed.Set(key, "hello_value", time.Second*1000).Result()
+	ret, err := yredis.X.Set(key, "hello_value", time.Second*1000).Result()
 	fmt.Println("---ret---", ret, "-----------")
 	fmt.Println("---err---", err, "-----------")
 
 	fmt.Println("------", "demo get", "-----------")
-	str, err := yredis.XRed.Get(key).Result()
+	str, err := yredis.X.Get(key).Result()
 	fmt.Println("----err--", err, "-----------")
 	log.Println("key value:", str)
 }

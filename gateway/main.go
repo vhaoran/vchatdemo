@@ -6,11 +6,11 @@ import (
 	"net/http"
 
 	//单独运行时导入改为这个
-	// or import "github.com/weihaoranW/vchat"
+	// or import "github.com/vhaoran/vchat"
 	"vchatdemo/unit/intf"
 
-	"github.com/weihaoranW/vchat/lib"
-	"github.com/weihaoranW/vchat/lib/ykit"
+	"github.com/vhaoran/vchat/lib"
+	"github.com/vhaoran/vchat/lib/ykit"
 )
 
 func init() {

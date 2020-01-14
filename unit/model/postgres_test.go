@@ -7,8 +7,8 @@ import (
 
 	"github.com/davecgh/go-spew/spew"
 
-	"github.com/weihaoranW/vchat/lib"
-	"github.com/weihaoranW/vchat/lib/ypg"
+	"github.com/vhaoran/vchat/lib"
+	"github.com/vhaoran/vchat/lib/ypg"
 )
 
 type Abc struct {
@@ -49,16 +49,16 @@ func Test_pg_insert(t *testing.T) {
 	var err error
 	prepare()
 
-	if ypg.XDB.HasTable(new(Abc)) {
-		err := ypg.XDB.DropTable(new(Abc)).Error
+	if ypg.X.HasTable(new(Abc)) {
+		err := ypg.X.DropTable(new(Abc)).Error
 		if err != nil {
 			log.Println(err)
 			return
 		}
 	}
 
-	if !ypg.XDB.HasTable(new(Abc)) {
-		er := ypg.XDB.CreateTable(new(Abc)).Error
+	if !ypg.X.HasTable(new(Abc)) {
+		er := ypg.X.CreateTable(new(Abc)).Error
 		if er != nil {
 			fmt.Println("---create table err---", err, "-----------")
 			return
@@ -73,7 +73,7 @@ func Test_pg_insert(t *testing.T) {
 				"",
 		}
 
-		err = ypg.XDB.Save(bean).Error
+		err = ypg.X.Save(bean).Error
 		if err != nil {
 			log.Println(err)
 			return
@@ -83,7 +83,7 @@ func Test_pg_insert(t *testing.T) {
 
 	fmt.Println("------", "demo find", "-----------")
 	l := make([]*Abc, 0)
-	err = ypg.XDB.Find(&l).Error
+	err = ypg.X.Find(&l).Error
 	if err != nil {
 		log.Println(err)
 		return
@@ -101,8 +101,8 @@ func Test_pg_update(t *testing.T) {
 			ID: i,
 		}
 
-		//err = ypg.XDB.Model(bean).Update("CName", "hello").Error
-		err = ypg.XDB.Model(bean).Updates(Abc{CName: "test "}).Error
+		//err = ypg.X.Model(bean).Update("CName", "hello").Error
+		err = ypg.X.Model(bean).Updates(Abc{CName: "test "}).Error
 		if err != nil {
 			log.Println(err)
 			return
@@ -112,7 +112,7 @@ func Test_pg_update(t *testing.T) {
 
 	fmt.Println("------", "demo find", "-----------")
 	l := make([]*Abc, 0)
-	err = ypg.XDB.Find(&l).Error
+	err = ypg.X.Find(&l).Error
 	if err != nil {
 		log.Println(err)
 		return
