@@ -1,0 +1,55 @@
+microService:
+  # 每一种服务不相同，同类的微服务相同
+  tag:  user
+  # 本地监听商品，docker中
+  port: 9050
+  # 本地监听主机，docker中
+  host: 0.0.0.0
+  # etct注册端口，docker映射到外部时使用
+  regPort: 9050
+  # etct注册主机，docker映射到外部时使用
+  regHost: 127.0.0.1
+  # 所有微服務相同
+etcd:
+  hosts:
+    - "127.0.0.1:2379"
+  options:
+    cert:          ""
+    key:           ""
+    caCert:        ""
+    dialTimeout:   30
+    dialKeepAlive: 30
+    username:      ""
+    password:      ""
+postgres:
+  url:  "host=127.0.0.1 user=root dbname=test sslmode=disable password=password"
+  poolMax: 100
+  poolMin:  10
+redis:
+  addrs:
+    - "127.0.0.1:7001"
+    - "127.0.0.1:7002"
+    - "127.0.0.1:7003"
+    - "127.0.0.1:7004"
+    - "127.0.0.1:7005"
+    - "127.0.0.1:7006"
+  password: ""
+  poolSize: 100
+  minIdleConns: 10
+emq:
+  url: ""
+  host: "127.0.0.1"
+  tcpPort: "1883"
+  userName: ""
+  password: ""
+
+mongo:
+  url:  "mongodb://root:password@127.0.0.1:27017/test?&authSource=admin"
+  options:
+    connectTimeout: 10
+    heartbeatInterval: 20
+    maxConnIdleTime:   300
+    maxPoolSize:       100
+    minPoolSize:       10
+    serverSelectionTimeout: 5
+
