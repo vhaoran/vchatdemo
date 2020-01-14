@@ -5,8 +5,8 @@ import (
 	"log"
 	"testing"
 
-	"github.com/weihaoranW/vchat/lib"
-	"github.com/weihaoranW/vchat/lib/ymongo"
+	"github.com/vhaoran/vchat/lib"
+	"github.com/vhaoran/vchat/lib/ymongo"
 )
 
 type MongoHello struct {
@@ -41,7 +41,7 @@ func Test_insert_one(t *testing.T) {
 		Age:   88,
 	}
 
-	r, err := ymongo.XMongo.DoInsertOne("test", "myTest", bean)
+	r, err := ymongo.X.DoInsertOne("test", "myTest", bean)
 	log.Println(r)
 	fmt.Println("------", "", "-----------")
 	log.Println(err)
