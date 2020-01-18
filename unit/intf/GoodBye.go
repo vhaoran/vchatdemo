@@ -1,5 +1,7 @@
 package intf
 
+//for snippet用于标准返回值的微服务接口
+
 import (
 	"context"
 	"encoding/json"
@@ -13,19 +15,16 @@ import (
 )
 
 const (
-	//todo
-	HelloWorld_HANDLER_PATH = "/HelloWorld"
+	GoodBye_HANDLER_PATH = "/GoodBye"
 )
 
 type (
-	HelloWorldService interface {
-		//todo
-		Hello(in *HelloWorldRequest) (string, error)
+	GoodByeService interface {
+		Exec(in *GoodByeRequest) (string, error)
 	}
 
 	//input data
-	//todo
-	HelloWorldRequest struct {
+	GoodByeRequest struct {
 		S string `json:"s"`
 	}
 
@@ -37,43 +36,29 @@ type (
 	//}
 
 	// handler implements
-	HelloWorldHandler struct {
+	GoodByeHandler struct {
 		base ykit.RootTran
 	}
 )
 
-func (r *HelloWorldHandler) MakeLocalEndpoint(svc HelloWorldService) endpoint.Endpoint {
+func (r *GoodByeHandler) MakeLocalEndpoint(svc GoodByeService) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (interface{}, error) {
-		fmt.Println("#############  hello ###########")
+		fmt.Println("#############  GoodBye ###########")
 		spew.Dump(ctx)
 
-		//todo
-		in := request.(*HelloWorldRequest)
-		ret, err := svc.Hello(in)
-		if err != nil {
-			return &ykit.Result{
-				Code: 500,
-				Msg:  "服务器内部错误",
-				Data: nil,
-			}, err
-		}
-		//todo
-		return &ykit.Result{
-			Code: 200,
-			Msg:  "ok",
-			Data: ret,
-		}, nil
+		in := request.(*GoodByeRequest)
+		return svc.Exec(in)
 	}
 }
 
 //个人实现,参数不能修改
-func (r *HelloWorldHandler) DecodeRequest(ctx context.Context, req *http.Request) (interface{}, error) {
-	return r.base.DecodeRequest(new(HelloWorldRequest), ctx, req)
+func (r *GoodByeHandler) DecodeRequest(ctx context.Context, req *http.Request) (interface{}, error) {
+	return r.base.DecodeRequest(new(GoodByeRequest), ctx, req)
 }
 
 //个人实现,参数不能修改
-func (r *HelloWorldHandler) DecodeResponse(_ context.Context, res *http.Response) (interface{}, error) {
-	var response ykit.Result
+func (r *GoodByeHandler) DecodeResponse(_ context.Context, res *http.Response) (interface{}, error) {
+	var response string
 	if err := json.NewDecoder(res.Body).Decode(&response); err != nil {
 		return nil, err
 	}
@@ -81,7 +66,7 @@ func (r *HelloWorldHandler) DecodeResponse(_ context.Context, res *http.Response
 }
 
 //handler for router，微服务本地接口，
-func (r *HelloWorldHandler) HandlerLocal(service HelloWorldService,
+func (r *GoodByeHandler) HandlerLocal(service GoodByeService,
 	mid []endpoint.Middleware,
 	options ...tran.ServerOption) *tran.Server {
 
@@ -100,16 +85,25 @@ func (r *HelloWorldHandler) HandlerLocal(service HelloWorldService,
 }
 
 //sd,proxy实现,用于etcd自动服务发现时的handler
-func (r *HelloWorldHandler) HandlerSD(mid []endpoint.Middleware,
+func (r *GoodByeHandler) HandlerSD(mid []endpoint.Middleware,
 	options ...tran.ServerOption) *tran.Server {
 	return r.base.HandlerSD(
 		context.Background(),
 		MSTAG,
-		//todo
 		"POST",
-		HelloWorld_HANDLER_PATH,
+		GoodBye_HANDLER_PATH,
 		r.DecodeRequest,
 		r.DecodeResponse,
 		mid,
 		options...)
+}
+
+func (r *GoodByeHandler) ProxySD() endpoint.Endpoint {
+	return r.base.ProxyEndpointSD(
+		context.Background(),
+		MSTAG,
+		"POST",
+		GoodBye_HANDLER_PATH,
+		r.DecodeRequest,
+		r.DecodeResponse)
 }

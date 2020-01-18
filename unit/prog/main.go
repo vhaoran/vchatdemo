@@ -67,6 +67,8 @@ func main() {
 	mux.Handle("/HelloWorld", new(intf.HelloWorldHandler).HandlerLocal(new(ctl.HelloWorldCtl), nil))
 	// userAdd,注意每个路由的来源
 	mux.Handle("/UserAdd", new(intf.UserAddHandler).HandlerLocal(new(ctl.UserAddCtl)))
+	mux.Handle("/GoodBye", new(intf.GoodByeHandler).HandlerLocal(new(ctl.GoodByeImpl), nil))
+
 	// 每一个微服务都需要实现的方法，用于测试服务是否运行
 	mux.Handle("/ping", http.HandlerFunc(new(Ping).handler))
 

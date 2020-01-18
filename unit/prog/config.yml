@@ -8,8 +8,18 @@ microService:
   # etct注册端口，docker映射到外部时使用
   regPort: 9050
   # etct注册主机，docker映射到外部时使用
-  regHost: localhost
+  regHost: 127.0.0.1
   # 所有微服務相同
+
+log:
+  logLevel: debug
+  # 日志路径
+  # logPath: "./"
+  # 文件名，不含路径
+  fileName: log
+  # 扩展名
+  ext: .log
+
 etcd:
   hosts:
     - "192.168.0.201:12379"
@@ -44,7 +54,8 @@ emq:
   password: ""
 
 mongo:
-  url:  "mongodb://root:password@192.168.0.201:27017/test?&authSource=admin"
+  url:   "mongodb://root:password@192.168.0.201:27017,192.168.0.201:27018,192.168.0.201:27019/test?&authSource=admin&slaveOk=true"
+  #url:   "mongodb://192.168.0.201:27017,192.168.0.201:27018,192.168.0.201:27019/test?&slaveOk=true"
   options:
     connectTimeout: 10
     heartbeatInterval: 20
@@ -52,4 +63,10 @@ mongo:
     maxPoolSize:       100
     minPoolSize:       10
     serverSelectionTimeout: 5
+rabbitMq:
+  url: amqp://root:password@192.168.0.99:5672/
+  poolMax: 100
+  poolMin: 10
+
+
 

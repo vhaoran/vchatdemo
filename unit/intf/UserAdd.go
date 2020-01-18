@@ -103,28 +103,3 @@ func (r *UserAddHandler) HandlerSD(mid ...endpoint.Middleware) *tran.Server {
 		r.DecodeResponse,
 		mid)
 }
-
-// for test
-//测试proxy方式的实现,用於測試某一微服務的運行情況
-func (r *UserAddHandler) HandlerProxyForTest() *tran.Server {
-	ep := r.MakeProxyEndPointForTest(context.Background())
-	return tran.NewServer(
-		ep,
-		r.DecodeRequest,
-		r.base.EncodeResponse,
-	)
-}
-
-// for test
-//sd,proxy实现,调用 指定位置的endPoint
-func (r *UserAddHandler) MakeProxyEndPointForTest(
-	ctx context.Context) endpoint.Endpoint {
-	//modify
-	return r.base.MakeProxyEndPoint(
-		//此为被调用的微服务的(host:port),
-		"localhost:9001",
-		"POST",
-		P_UserAdd_HANDLER_PATH,
-		r.DecodeResponse,
-		ctx)
-}

@@ -45,6 +45,16 @@ func main() {
 		"/HelloWorld",
 		nil))
 
+	mux.Handle("/api/GoodBye", new(ykit.RootTran).HandlerSDDefault(
+		context.Background(),
+		"api",
+		"POST",
+		"/GoodBye",
+		nil))
+
+	mux.Handle("/api/GoodBye1",
+		new(intf.GoodByeHandler).HandlerSD(nil))
+
 	golog.Println(
 		`start at :9999,url is curl:localhost/hello`,
 		`test command:`,
