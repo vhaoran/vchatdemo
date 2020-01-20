@@ -4,7 +4,6 @@ import (
 	"context"
 	golog "log"
 	"net/http"
-
 	//单独运行时导入改为这个
 	// or import "github.com/vhaoran/vchat"
 	"vchatdemo/unit/intf"
@@ -54,6 +53,8 @@ func main() {
 
 	mux.Handle("/api/GoodBye1",
 		new(intf.GoodByeHandler).HandlerSD(nil))
+
+	mux.Handle("/api/CtxTest", new(intf.CtxTestHandler).HandlerSD(nil))
 
 	golog.Println(
 		`start at :9999,url is curl:localhost/hello`,

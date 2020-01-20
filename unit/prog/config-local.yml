@@ -1,6 +1,6 @@
 microService:
   # 每一种服务不相同，同类的微服务相同
-  tag:  user
+  tag:  api
   # 本地监听商品，docker中
   port: 9050
   # 本地监听主机，docker中

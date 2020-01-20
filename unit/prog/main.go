@@ -10,7 +10,7 @@ import (
 	"github.com/vhaoran/vchat/lib/yetcd"
 	"github.com/vhaoran/vchat/lib/ylog"
 
-	"vchatdemo/unit/ctl"
+	"vchatdemo/unit/impl"
 	"vchatdemo/unit/intf"
 )
 
@@ -71,8 +71,9 @@ func main() {
 
 	// 每一个微服务都需要实现的方法，用于测试服务是否运行
 	mux.Handle("/ping", http.HandlerFunc(new(Ping).handler))
+	mux.Handle("/CtxTest", new(intf.CtxTestHandler).HandlerLocal(new(ctl.CtxTestImpl), nil))
 
-	//-------register micro-ctl-----------------
+	//-------register micro-impl-----------------
 	// 每二步:註冊微服務到etcd
 	ylog.Info("正在向etcd注册微服务......")
 	if err := yetcd.RegisterService(msTag, regHost, fmt.Sprint(regPort)); err != nil {
