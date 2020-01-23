@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/davecgh/go-spew/spew"
+	"github.com/go-kit/kit/auth/jwt"
 	"github.com/go-kit/kit/endpoint"
 	tran "github.com/go-kit/kit/transport/http"
 	"github.com/vhaoran/vchat/lib/ykit"
@@ -117,13 +118,18 @@ func (r *CtxTestHandler) HandlerSD(mid []endpoint.Middleware,
 
 	// 访问 request内容,丁当于Java中的拦截器
 	before := tran.ServerBefore(func(ctx context.Context, req *http.Request) context.Context {
-		jwt := req.Header.Get("Jwt")
+		jwt := req.Header.Get("Authorization")
 		ylog.Debug("jwt: ", jwt)
+
+		for k, v := range req.Header {
+			ylog.Debug("header: ", k, ":", v)
+		}
 
 		fmt.Println("-------HandlerSD-----before host:", req.Host)
 		return context.WithValue(ctx, "Jwt", jwt)
 	})
 
+	opts := append(options, before)
 	return r.base.HandlerSD(
 		context.Background(),
 		MSTAG,
@@ -132,7 +138,8 @@ func (r *CtxTestHandler) HandlerSD(mid []endpoint.Middleware,
 		r.DecodeRequest,
 		r.DecodeResponse,
 		mid,
-		before)
+		append(opts, tran.ServerBefore(jwt.HTTPToContext()))...)
+
 }
 
 func (r *CtxTestHandler) ProxySD() endpoint.Endpoint {
